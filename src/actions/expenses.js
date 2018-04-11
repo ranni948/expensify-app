@@ -39,19 +39,26 @@ export const startRemoveExpense = ({ id } = {}) => {
         });
     }
 }
-// database.ref()
-// .remove()
-// .then(() => {
-//     console.log('Data was removed');
-// }).catch((e) => {
-//     console.log('Did not remove data', e);
-// });
+
 //EDIT_EXPENSE
 export const editExpense = (id, updates) => ({
     type: 'EDIT_EXPENSE',
     id,
     updates
 });
+
+export const startEditExpense = (id, updates) => {
+    return (dispatch) => {
+        return database.ref(`expenses/${id}`).update(updates).then(() => {
+            dispatch(editExpense(id, updates));
+        });
+    }
+}
+// database.ref().update({
+//     stressLevel: 9,
+//     'job/company': 'Amazon',
+//     'location/city': 'Seattle'
+// });
 
 // SET_EXPENSES
 export const setExpenses = (expenses) => ({
